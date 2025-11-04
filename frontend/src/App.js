@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "@/App.css";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { Check, ArrowRight, Menu, X, Sparkles, Target, Users, TrendingUp } from "lucide-react";
+import { Check, ArrowRight, Menu, X, Sparkles, Target, Users, TrendingUp, Phone, Mail, Linkedin, Instagram, Youtube } from "lucide-react";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -14,6 +14,8 @@ function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [currentTeamPage, setCurrentTeamPage] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,6 +38,64 @@ function App() {
     setMobileMenuOpen(false);
   };
 
+  // Team members data
+  const teamMembers = [
+    {
+      name: "Shivam Tiwari",
+      role: "Founder",
+      description: "I founded OptiCore to help businesses use AI and automation to work smarter and grow faster. With a strong interest in technology and marketing, I focus on building simple, effective systems that deliver real results",
+      photo: "/images/team/Founder.jpeg",
+      linkedin: "https://www.linkedin.com/in/shivam-tiwari-aa2ab1233/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+      instagram: "https://www.instagram.com/_iam_shivam_tiwari/?igsh=cjhnYXFuc2l1ZjV6#"
+    },
+    {
+      name: "Shubham Tiwari",
+      role: "Co-Founder",
+      description: "marketing strategist with a passion for brand storytelling. I specialize in crafting compelling narratives that connect businesses with their audiences and drive growth.",
+      photo: "/images/team/shubham-tiwari.jpg",
+      linkedin: "https://www.linkedin.com/in/shubham-tiwari-5ab30a211/",
+      instagram: "https://www.instagram.com/_shubham_3003_?igsh=c2w5ZXY4bGc1bDZm"
+    },
+    {
+      name: "Satyam Tiwari",
+      role: "UI/UX Designer & Lead Generation",
+      description: "UI/UX designer and Lead generation specialist with expertise in creating intuitive user interfaces and driving customer acquisition through data-driven strategies.",
+      photo: "/images/team/satyam-tiwari.jpg",
+      linkedin: "https://linkedin.com/in/satyamtiwari",
+      instagram: "https://www.instagram.com/satyamtiwari_005?igsh=czc0eGJkdXRnemMx"
+    },
+    {
+      name: "Satyam A Tiwari",
+      role: "Lead Developer",
+      description: "Full-stack developer focused on scalable AI-powered applications.",
+      photo: "/images/team/pinaki-tiwari.jpg",
+      linkedin: "https://www.linkedin.com/in/satyam-tiwari-1205a3328/",
+      instagram: "https://www.instagram.com/pinakiplays?igsh=M2Z2MGlybTFraGp5"
+    }
+  ];
+
+  // Auto-play functionality
+  useEffect(() => {
+    if (isAutoPlaying) {
+      const interval = setInterval(() => {
+        setCurrentTeamPage((prev) => (prev + 1) % 2);
+      }, 10000); // 10 seconds
+
+      return () => clearInterval(interval);
+    }
+  }, [isAutoPlaying]);
+
+  // Pause auto-play when user interacts
+  const handleTeamPageChange = (page) => {
+    setCurrentTeamPage(page);
+    setIsAutoPlaying(false);
+    // Resume auto-play after 30 seconds of inactivity
+    setTimeout(() => setIsAutoPlaying(true), 30000);
+  };
+
+  // Get current team members to display (2 at a time)
+  const currentTeamMembers = teamMembers.slice(currentTeamPage * 2, (currentTeamPage + 1) * 2);
+
   return (
     <div className="App">
       {/* Navigation */}
@@ -56,6 +116,7 @@ function App() {
               <button onClick={() => scrollToSection('home')} className="text-slate-300 hover:text-emerald-400 transition-colors" data-testid="nav-home-btn">Home</button>
               <button onClick={() => scrollToSection('services')} className="text-slate-300 hover:text-emerald-400 transition-colors" data-testid="nav-services-btn">Services</button>
               <button onClick={() => scrollToSection('about')} className="text-slate-300 hover:text-emerald-400 transition-colors" data-testid="nav-about-btn">About Us</button>
+              <button onClick={() => scrollToSection('team')} className="text-slate-300 hover:text-emerald-400 transition-colors" data-testid="nav-team-btn">Team</button>
               <Button onClick={() => scrollToSection('contact')} className="bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-600 hover:to-cyan-600 text-white rounded-full px-6" data-testid="nav-contact-btn">
                 Contact Us
               </Button>
@@ -75,6 +136,7 @@ function App() {
               <button onClick={() => scrollToSection('home')} className="block w-full text-left text-slate-300 hover:text-emerald-400 transition-colors" data-testid="mobile-nav-home-btn">Home</button>
               <button onClick={() => scrollToSection('services')} className="block w-full text-left text-slate-300 hover:text-emerald-400 transition-colors" data-testid="mobile-nav-services-btn">Services</button>
               <button onClick={() => scrollToSection('about')} className="block w-full text-left text-slate-300 hover:text-emerald-400 transition-colors" data-testid="mobile-nav-about-btn">About Us</button>
+              <button onClick={() => scrollToSection('team')} className="block w-full text-left text-slate-300 hover:text-emerald-400 transition-colors" data-testid="mobile-nav-team-btn">Team</button>
               <Button onClick={() => scrollToSection('contact')} className="w-full bg-gradient-to-r from-emerald-500 to-cyan-500 text-white rounded-full" data-testid="mobile-nav-contact-btn">
                 Contact Us
               </Button>
@@ -179,16 +241,63 @@ function App() {
         </div>
       </section>
 
+      {/* Team Section */}
+      <section id="team" className="team-section">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-24">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl sm:text-5xl font-bold mb-4" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>Meet Our Team</h2>
+            <p className="text-lg text-slate-400 max-w-2xl mx-auto">The experts behind OptiCore's AI automation and marketing solutions</p>
+          </div>
+
+          {/* Team Members Display */}
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            {currentTeamMembers.map((member, idx) => (
+              <div key={idx} className="team-card" data-testid={`team-member-${idx}`}>
+                <div className="team-photo">
+                  <img src={member.photo} alt={member.name} className="w-full h-[36rem] object-cover rounded-xl" />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>{member.name}</h3>
+                  <p className="text-emerald-400 font-medium mb-3">{member.role}</p>
+                  <p className="text-slate-400 text-sm mb-4">{member.description}</p>
+                  <div className="flex space-x-3">
+                    <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-blue-400 transition-colors">
+                      <Linkedin className="w-5 h-5" />
+                    </a>
+                    <a href={member.instagram} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-pink-400 transition-colors">
+                      <Instagram className="w-5 h-5" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Navigation Dots and Buttons */}
+          <div className="flex justify-center items-center space-x-4">
+            <Button
+              onClick={() => handleTeamPageChange(0)}
+              variant={currentTeamPage === 0 ? "default" : "outline"}
+              className={`w-3 h-3 rounded-full p-0 ${currentTeamPage === 0 ? 'bg-emerald-500' : 'border-slate-600'}`}
+              data-testid="team-page-1"
+            />
+            <Button
+              onClick={() => handleTeamPageChange(1)}
+              variant={currentTeamPage === 1 ? "default" : "outline"}
+              className={`w-3 h-3 rounded-full p-0 ${currentTeamPage === 1 ? 'bg-emerald-500' : 'border-slate-600'}`}
+              data-testid="team-page-2"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section */}
       <section id="contact" className="contact-section">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8 py-24">
-          <div className="contact-container">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl sm:text-5xl font-bold mb-4" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>Ready to Discuss Your Project?</h2>
-              <p className="text-lg text-slate-400">Let's talk about how OptiCore can help transform your business</p>
-            </div>
-
-            <form onSubmit={handleSubmit} className="space-y-6" data-testid="contact-form">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-24">
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            {/* Contact Form - Left Side */}
+            <div className="contact-container">
+              <form onSubmit={handleSubmit} className="space-y-6" data-testid="contact-form">
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-2">Name</label>
                 <Input
@@ -233,6 +342,34 @@ function App() {
                 {isSubmitting ? "Sending..." : "Send Message"}
               </Button>
             </form>
+            </div>
+
+            {/* Contact Information - Right Side */}
+            <div className="space-y-8">
+              <div>
+                <h2 className="text-3xl sm:text-4xl font-bold mb-6" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>Get In Touch</h2>
+                <p className="text-lg text-slate-400 mb-8">Ready to transform your business with AI automation.</p>
+              </div>
+
+              <div className="space-y-6">
+                <div className="contact-info-card">
+                  <div className="flex items-center justify-center w-12 h-12 bg-emerald-500/20 rounded-full mb-4">
+                    <Mail className="w-6 h-6 text-emerald-400" />
+                  </div>
+                  <h3 className="font-bold text-white mb-2">Email</h3>
+                  <p className="text-slate-400">info.opticoreai@gmail.com</p>
+                </div>
+
+                <div className="contact-info-card">
+                  <div className="flex items-center justify-center w-12 h-12 bg-cyan-500/20 rounded-full mb-4">
+                    <Phone className="w-6 h-6 text-cyan-400" />
+                  </div>
+                  <h3 className="font-bold text-white mb-2">Phone</h3>
+                  <p className="text-slate-400">(+91) 8928800538</p>
+                  <p className="text-slate-400">(+91) 9967805358</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -258,16 +395,31 @@ function App() {
                 <button onClick={() => scrollToSection('home')} className="block text-slate-400 hover:text-emerald-400 transition-colors">Home</button>
                 <button onClick={() => scrollToSection('services')} className="block text-slate-400 hover:text-emerald-400 transition-colors">Services</button>
                 <button onClick={() => scrollToSection('about')} className="block text-slate-400 hover:text-emerald-400 transition-colors">About Us</button>
+                <button onClick={() => scrollToSection('team')} className="block text-slate-400 hover:text-emerald-400 transition-colors">Team</button>
               </div>
             </div>
             <div>
               <h4 className="font-bold text-white mb-4">Contact</h4>
-              <p className="text-slate-400">contact@opticore.ai</p>
-              <p className="text-slate-400">+1 (555) 123-4567</p>
+              <p className="text-slate-400">info.opticoreai@gmail.com</p>
+              <p className="text-slate-400">(+91) 8928800538</p>
+              <p className="text-slate-400">(+91) 9967805358</p>
             </div>
           </div>
-          <div className="border-t border-slate-800 mt-8 pt-8 text-center text-slate-400">
-            <p>© 2025 OptiCore. All rights reserved.</p>
+          <div className="border-t border-slate-800 mt-8 pt-8">
+            <div className="flex flex-col md:flex-row justify-between items-center">
+              <p className="text-slate-400">© 2025 OptiCore. All rights reserved.</p>
+              <div className="flex space-x-4 mt-4 md:mt-0">
+                <a href="https://www.linkedin.com/company/opticoreai/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-blue-400 transition-colors">
+                  <Linkedin className="w-6 h-6" />
+                </a>
+                <a href="https://www.instagram.com/opticoreai/?igsh=MWU2Ym90ejg3aHE2cw%3D%3D#" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-pink-400 transition-colors">
+                  <Instagram className="w-6 h-6" />
+                </a>
+                <a href="https://youtube.com/@opticore" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-red-400 transition-colors">
+                  <Youtube className="w-6 h-6" />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </footer>
