@@ -242,14 +242,13 @@ function App() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12">
           <div className="grid md:grid-cols-3 gap-8">
             <div>
-              <div className="flex items-center space-x-3 mb-4">
+              <div className="mb-4">
                 <img 
                   src="https://customer-assets.emergentagent.com/job_automate-agency/artifacts/5dm18xmh_Screenshot_2025-11-04_at_8.24.02_PM-removebg-preview.png" 
                   alt="OptiCore Logo" 
-                  className="h-12 w-auto logo-glow"
+                  className="h-14 w-auto logo-glow"
                   data-testid="footer-logo"
                 />
-                <span className="text-2xl font-bold text-white logo-text" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>OptiCore</span>
               </div>
               <p className="text-slate-400">AI Automation & Marketing Solutions</p>
             </div>
