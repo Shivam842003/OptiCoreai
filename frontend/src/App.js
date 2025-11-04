@@ -42,14 +42,13 @@ function App() {
       <nav className="fixed top-0 w-full z-50 bg-slate-950/90 backdrop-blur-xl border-b border-slate-800">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center">
               <img 
                 src="https://customer-assets.emergentagent.com/job_automate-agency/artifacts/5dm18xmh_Screenshot_2025-11-04_at_8.24.02_PM-removebg-preview.png" 
                 alt="OptiCore Logo" 
-                className="h-12 w-auto logo-glow"
+                className="h-14 w-auto logo-glow"
                 data-testid="nav-logo"
               />
-              <span className="text-2xl font-bold text-white logo-text" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>OptiCore</span>
             </div>
 
             {/* Desktop Navigation */}
