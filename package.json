@@ -9,7 +9,6 @@
     "deploy": "railway up"
   },
   "engines": {
-    "node": "20.x",
-    "python": "3.9"
+    "node": "20.x"
   }
 }
