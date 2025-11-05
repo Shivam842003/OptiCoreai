@@ -44,7 +44,7 @@ function App() {
       name: "Shivam Tiwari",
       role: "Founder",
       description: "I founded OptiCore to help businesses use AI and automation to work smarter and grow faster. With a strong interest in technology and marketing, I focus on building simple, effective systems that deliver real results",
-      photo: "/images/team/Founder.jpeg",
+      photo: "/images/team/shivam.png",
       linkedin: "https://www.linkedin.com/in/shivam-tiwari-aa2ab1233/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
       instagram: "https://www.instagram.com/_iam_shivam_tiwari/?igsh=cjhnYXFuc2l1ZjV6#"
     },
@@ -52,16 +52,16 @@ function App() {
       name: "Shubham Tiwari",
       role: "Co-Founder",
       description: "marketing strategist with a passion for brand storytelling. I specialize in crafting compelling narratives that connect businesses with their audiences and drive growth.",
-      photo: "/images/team/shubham-tiwari.jpg",
+      photo: "/images/team/shubham-tiwari.png",
       linkedin: "https://www.linkedin.com/in/shubham-tiwari-5ab30a211/",
       instagram: "https://www.instagram.com/_shubham_3003_?igsh=c2w5ZXY4bGc1bDZm"
     },
     {
       name: "Satyam Tiwari",
-      role: "UI/UX Designer & Lead Generation",
+      role: "UI/UX Designer & Lead Generater",
       description: "UI/UX designer and Lead generation specialist with expertise in creating intuitive user interfaces and driving customer acquisition through data-driven strategies.",
-      photo: "/images/team/satyam-tiwari.jpg",
-      linkedin: "https://linkedin.com/in/satyamtiwari",
+      photo: "/images/team/satyam-tiwari.png",
+      linkedin: "https://www.linkedin.com/in/satyam-tiwari-0365b7326/",
       instagram: "https://www.instagram.com/satyamtiwari_005?igsh=czc0eGJkdXRnemMx"
     },
     {
@@ -99,7 +99,7 @@ function App() {
   return (
     <div className="App">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-slate-950/90 backdrop-blur-xl border-b border-slate-800">
+      <nav className="fixed top-0 w-full z-50 bg-slate-800/90 backdrop-blur-xl border-b border-slate-600">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <div className="flex items-center">
@@ -177,7 +177,7 @@ function App() {
             <p className="text-lg text-slate-400 max-w-2xl mx-auto">Comprehensive AI automation and marketing solutions tailored for your business needs</p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
                 icon: <Sparkles className="w-12 h-12 text-emerald-400" />,
@@ -196,6 +196,18 @@ function App() {
                 title: "Analytics & Insights",
                 description: "Turn your data into actionable insights with advanced analytics and predictive modeling.",
                 features: ["Performance Tracking", "Predictive Analytics", "Custom Dashboards"]
+              },
+              {
+                icon: <Users className="w-12 h-12 text-purple-400" />,
+                title: "UI/UX Design",
+                description: "Create intuitive and engaging user experiences that drive user satisfaction and business growth.",
+                features: ["User Research", "Interface Design", "Usability Testing"]
+              },
+              {
+                icon: <Check className="w-12 h-12 text-orange-400" />,
+                title: "Website Development",
+                description: "Build modern, responsive websites that convert visitors into customers with cutting-edge technology.",
+                features: ["Custom Development", "E-commerce Solutions", "Performance Optimization"]
               }
             ].map((service, idx) => (
               <div key={idx} className="service-card" data-testid={`service-card-${idx}`}>

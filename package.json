@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "description": "OptiCore Agency - AI Automation & Marketing Solutions",
   "scripts": {
-    "build:frontend": "cd frontend && yarn build",
+    "build:frontend": "cd frontend && yarn install && yarn build",
     "build:backend": "cd backend && echo 'Backend ready'",
     "build": "npm run build:frontend && npm run build:backend",
     "deploy": "railway up"
   },
   "engines": {
-    "node": "18.x",
+    "node": "20.x",
     "python": "3.9"
   }
 }
